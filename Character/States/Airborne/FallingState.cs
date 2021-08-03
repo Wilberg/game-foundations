@@ -10,9 +10,9 @@ namespace Character.States.Airborne
 
         public override void OnEnter()
         {
-                base.OnEnter();
-                
-                Character.motor.disableStickToGround = false;
+            base.OnEnter();
+
+            Character.motor.disableStickToGround = false;
         }
 
         public override void OnLogicUpdate()

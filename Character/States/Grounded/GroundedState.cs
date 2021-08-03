@@ -1,17 +1,25 @@
 using Character.Motor;
 using Character.States.Airborne;
+using Character.States.Grounded.Crouching;
 using UnityEngine;
 
 namespace Character.States.Grounded
 {
     public abstract class GroundedState : CharacterState
     {
+        protected float Speed;
+        protected float Deceleration;
+        protected float Acceleration;
+        
         protected GroundedState(CharacterBehaviour character) : base(character)
         {
         }
         
         public override void OnEnter()
         {
+            Speed = Character.motor.data.groundedSpeed;
+            Acceleration = Character.motor.data.groundedAcceleration;
+            Deceleration = Character.motor.data.groundedDeceleration;
         }
 
         public override void OnExit()
@@ -22,13 +30,9 @@ namespace Character.States.Grounded
         {
             var velocity = Character.motor.Velocity;
             var direction = Character.motor.direction;
-            
-            var acceleration = Character.motor.data.groundedAcceleration;
-            var deceleration = Character.motor.data.groundedDeceleration;
-            var speed = Character.motor.data.groundedSpeed;
-            
-            MotorHelper.Decelerate(ref velocity, deceleration * Time.deltaTime);
-            MotorHelper.Accelerate(ref velocity, direction, acceleration * Time.deltaTime, speed);
+
+            MotorHelper.Decelerate(ref velocity, Deceleration * Time.deltaTime);
+            MotorHelper.Accelerate(ref velocity, direction, Acceleration * Time.deltaTime, Speed);
             
             Character.motor.SetVelocity(velocity);
         }
@@ -41,8 +45,17 @@ namespace Character.States.Grounded
             }
         }
 
-        public override void OnAction(string action)
+        public override void OnAction(string action, bool shouldPerform)
         {
+            switch (action)
+            {
+                case CharacterActions.Crouch when shouldPerform:
+                    Character.StateMachine.SetState<CrouchIdleState>();
+                    break;
+                case CharacterActions.Jump when shouldPerform:
+                    Character.StateMachine.SetState<JumpingState>();
+                    break;
+            }
         }
     }
 }

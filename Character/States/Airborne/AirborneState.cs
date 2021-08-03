@@ -34,7 +34,7 @@ namespace Character.States.Airborne
         {
         }
 
-        public override void OnAction(string action)
+        public override void OnAction(string action, bool shouldPerform)
         {
         }
     }

@@ -17,6 +17,6 @@ namespace Character.States
         public abstract void OnExit();
         public abstract void OnPhysicsUpdate();
         public abstract void OnLogicUpdate();
-        public abstract void OnAction(string action);
+        public abstract void OnAction(string action, bool shouldPerform);
     }
 }

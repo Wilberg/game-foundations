@@ -33,7 +33,17 @@ namespace Character.Brain
         {
             if (Input.GetButtonDown("Jump"))
             {
-                character.Invoke(CharacterActions.Jump);
+                character.Invoke(CharacterActions.Jump, true);
+            }
+
+            if (Input.GetKeyDown(KeyCode.LeftControl))
+            {
+                character.Invoke(CharacterActions.Crouch, true);
+            }
+            
+            if (Input.GetKeyUp(KeyCode.LeftControl))
+            {
+                character.Invoke(CharacterActions.Crouch, false);
             }
         }
 

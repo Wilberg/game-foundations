@@ -1,5 +1,5 @@
 using Character.States.Airborne;
-using UnityEngine;
+using Character.States.Grounded.Crouching;
 
 namespace Character.States.Grounded
 {
@@ -19,13 +19,18 @@ namespace Character.States.Grounded
             }
         }
 
-        public override void OnAction(string action)
+        public override void OnAction(string action, bool shouldPerform)
         {
-            base.OnAction(action);
-            
-            if (action == CharacterActions.Jump)
+            base.OnAction(action, shouldPerform);
+
+            switch (action)
             {
-                Character.StateMachine.SetState<JumpingState>();
+                case CharacterActions.Crouch when shouldPerform:
+                    Character.StateMachine.SetState<CrouchIdleState>();
+                    break;;
+                case CharacterActions.Jump when shouldPerform:
+                    Character.StateMachine.SetState<JumpingState>();
+                    break;
             }
         }
     }

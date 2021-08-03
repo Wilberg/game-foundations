@@ -17,5 +17,10 @@ namespace Character.Motor
         [Header("Deceleration")]
         public float groundedDeceleration = 10.0f;
         public float airborneDeceleration = 0.0f;
+
+        [HideInInspector] public float speed;
+        [HideInInspector] public float acceleration;
+        [HideInInspector] public float deceleration;
+        [HideInInspector] public float disableStickToGround;
     }
 }

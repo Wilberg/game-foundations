@@ -2,6 +2,7 @@ using Character.Motor;
 using Character.States;
 using Character.States.Airborne;
 using Character.States.Grounded;
+using Character.States.Grounded.Crouching;
 using State;
 using UnityEngine;
 
@@ -23,6 +24,8 @@ namespace Character
         {
             StateMachine.RegisterState(new IdleState(this));
             StateMachine.RegisterState(new WalkingState(this));
+            StateMachine.RegisterState(new CrouchIdleState(this));
+            StateMachine.RegisterState(new CrouchWalkingState(this));
             StateMachine.RegisterState(new LandingState(this));
             StateMachine.RegisterState(new JumpingState(this));
             StateMachine.RegisterState(new FallingState(this));
@@ -40,9 +43,9 @@ namespace Character
             (StateMachine.CurrentState as CharacterState)?.OnLogicUpdate();
         }
 
-        public void Invoke(string action)
+        public void Invoke(string action, bool shouldPerform)
         {
-            (StateMachine.CurrentState as CharacterState)?.OnAction(action);
+            (StateMachine.CurrentState as CharacterState)?.OnAction(action, shouldPerform);
         }
 
         public void Turn(Vector2 delta)
