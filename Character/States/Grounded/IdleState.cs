@@ -1,5 +1,6 @@
 using Character.States.Airborne;
 using Character.States.Grounded.Crouching;
+using Utilities;
 
 namespace Character.States.Grounded
 {
@@ -13,7 +14,7 @@ namespace Character.States.Grounded
         {
             base.OnLogicUpdate();
 
-            if (Character.motor.Velocity.magnitude > 0.1f)
+            if (Character.motor.Velocity.With(y: 0).magnitude > 0.1f)
             {
                 Character.StateMachine.SetState<WalkingState>();
             }

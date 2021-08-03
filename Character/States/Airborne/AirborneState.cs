@@ -1,5 +1,6 @@
 using Character.Motor;
 using UnityEngine;
+using Utilities;
 
 namespace Character.States.Airborne
 {
@@ -19,7 +20,7 @@ namespace Character.States.Airborne
         
         public override void OnPhysicsUpdate()
         {
-            var velocity = Character.motor.Velocity;
+            var velocity = Character.motor.Velocity.With(y: 0);
             var direction = Character.motor.direction;
             
             var acceleration = Character.motor.data.airborneAcceleration;
@@ -27,7 +28,7 @@ namespace Character.States.Airborne
             
             MotorHelper.Accelerate(ref velocity, direction, acceleration * Time.deltaTime, speed);
             
-            Character.motor.SetVelocity(velocity);
+            Character.motor.SetVelocity(velocity.With(y: Character.motor.Velocity.y));
         }
 
         public override void OnLogicUpdate()

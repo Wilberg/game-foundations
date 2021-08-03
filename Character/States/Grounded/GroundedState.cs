@@ -2,6 +2,7 @@ using Character.Motor;
 using Character.States.Airborne;
 using Character.States.Grounded.Crouching;
 using UnityEngine;
+using Utilities;
 
 namespace Character.States.Grounded
 {
@@ -28,13 +29,13 @@ namespace Character.States.Grounded
 
         public override void OnPhysicsUpdate()
         {
-            var velocity = Character.motor.Velocity;
+            var velocity = Character.motor.Velocity.With(y: 0);
             var direction = Character.motor.direction;
 
             MotorHelper.Decelerate(ref velocity, Deceleration * Time.deltaTime);
             MotorHelper.Accelerate(ref velocity, direction, Acceleration * Time.deltaTime, Speed);
             
-            Character.motor.SetVelocity(velocity);
+            Character.motor.SetVelocity(velocity.With(y: Character.motor.Velocity.y));
         }
 
         public override void OnLogicUpdate()

@@ -15,26 +15,8 @@ namespace Core
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         public static void Start()
         {
-            #if UNITY_EDITOR
-                RegisterDebugServices();
-            #else
-                RegisterServices();
-            #endif
-            
+            RegisterServices();
             ReadConfigs();
-        }
-
-        private static void RegisterDebugServices()
-        {
-            _logger = new UnityLogger();
-            _clientConfig = new ClientConfig();
-            _serverConfig = new ServerConfig();
-            
-            Locator.I.Register<IGameLogger>(_logger);
-            Locator.I.Register<IClientConfig>(_clientConfig);
-            Locator.I.Register<IServerConfig>(_serverConfig);
-            
-            _logger.Log("Services registered!");
         }
 
         private static void RegisterServices()

@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using Utilities;
 
 namespace Character.States.Grounded
 {
@@ -18,7 +19,7 @@ namespace Character.States.Grounded
         private IEnumerator Land()
         {
             yield return new WaitForSeconds(0.1f);
-            if (Character.motor.Velocity.magnitude > 0.1f)
+            if (Character.motor.Velocity.With(y: 0).magnitude > 0.1f)
             {
                 Character.StateMachine.SetState<WalkingState>();
             }
