@@ -1,3 +1,5 @@
+using Core.Services;
+
 namespace Core.Config
 {
     public interface IConfig : IService

@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
-using JetBrains.Annotations;
-using UnityEditorInternal;
 
-namespace Core
+namespace Core.Services
 {
     public class Locator
     {

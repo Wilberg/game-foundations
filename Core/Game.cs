@@ -1,6 +1,7 @@
 using Core.Config.Client;
 using Core.Config.Server;
 using Core.Logger;
+using Core.Services;
 using UnityEngine;
 
 namespace Core
@@ -12,10 +13,28 @@ namespace Core
         private static IServerConfig _serverConfig;
         
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-        private static void Start()
+        public static void Start()
         {
-            RegisterServices();
+            #if UNITY_EDITOR
+                RegisterDebugServices();
+            #else
+                RegisterServices();
+            #endif
+            
             ReadConfigs();
+        }
+
+        private static void RegisterDebugServices()
+        {
+            _logger = new UnityLogger();
+            _clientConfig = new ClientConfig();
+            _serverConfig = new ServerConfig();
+            
+            Locator.I.Register<IGameLogger>(_logger);
+            Locator.I.Register<IClientConfig>(_clientConfig);
+            Locator.I.Register<IServerConfig>(_serverConfig);
+            
+            _logger.Log("Services registered!");
         }
 
         private static void RegisterServices()
@@ -30,7 +49,7 @@ namespace Core
             
             _logger.Log("Services registered!");
         }
-
+        
         private static void ReadConfigs()
         {
             _clientConfig.Read();

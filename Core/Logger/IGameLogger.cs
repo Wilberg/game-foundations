@@ -1,3 +1,5 @@
+using Core.Services;
+
 namespace Core.Logger
 {
     public interface IGameLogger : IService
