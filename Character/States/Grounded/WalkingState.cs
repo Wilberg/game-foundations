@@ -1,6 +1,5 @@
 using Character.States.Airborne;
 using Character.States.Grounded.Crouching;
-using UnityEngine;
 
 namespace Character.States.Grounded
 {

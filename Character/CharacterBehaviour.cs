@@ -3,7 +3,6 @@ using Character.States;
 using Character.States.Airborne;
 using Character.States.Grounded;
 using Character.States.Grounded.Crouching;
-using State;
 using UnityEngine;
 
 namespace Character
@@ -15,7 +14,7 @@ namespace Character
         public MotorBehaviour motor;
         public string currentStateName;
         
-        public readonly StateMachine StateMachine = new StateMachine();
+        public readonly State.StateMachine StateMachine = new State.StateMachine();
 
         private float _rotationX;
         private float _rotationY;

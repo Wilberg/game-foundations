@@ -22,5 +22,17 @@ namespace State
         {
             _states[state.GetType()] = state;
         }
+
+        public void ExtendState<T, TE>(TE stateExtension) where TE : T where T : IState 
+        {
+            if (CurrentState == _states[typeof(T)])
+            {
+                CurrentState?.OnExit();
+            }
+
+            _states[typeof(T)] = stateExtension;
+            CurrentState = _states[typeof(T)];
+            CurrentState.OnEnter();
+        }
     }
 }
